@@ -1,20 +1,16 @@
-## Put comments here that give an overall description of what your
-## functions do
-
 ## These functions create several functions and objects enabling the 
 ## computation and cache of a given matrix and its inverse. 
-## makeCacheMatrix creates the place holders and the bridge to
-## get the calculated inverse matrix value into its environment
-## cacheSolve produces checks if cache exists and upodates 
+## makeCacheMatrix creates the placeholders and the bridge to
+## get the calculated value of the inverse matrix value into its environment
+## cacheSolve checks if cache exists and updates 
 ## the calculation if required
 
 
-## Write a short comment describing this function
 ## The function makeCacheMatrix takes a matrix as a formal argument; 
-## then it creates 4 functions returned in a named list, after setting
-## m -the place holder for x inverse value- to NULL :
+## then sets m -the place holder for x inverse value- to NULL 
+## and it creates 4 functions which returns as a named list:
 
-## 1) set:it allows to set the matrix being cached and resetting m to NULL
+## 1) set:it sets the matrix to be cached and resets m to NULL
 ## we can use set also to modify the original matrix after sourcing the 
 ## functions- see the example below-. This is due to the use
 ## of the special assignment operator, <<-, to change the values associated
@@ -22,13 +18,13 @@
 ## makeCacheMatrix environment. 
 ## By resetting m to NULL, it forces R to update the cache by applying the
 ## solve function to y (the new value of x/the new matrix) which is done
-## by cacheSolve function
+## via cacheSolve function
 
 ## 2) get: it calls the original matrix when needed
 
 ## 3) setinvmatrix: it sets the value of m. This value is calculated under
-## cacheSolve function (in a different environment) and, then, linked to 
-## matrix x -as its inverse- via the x$setinvmatrix(m) code
+## cacheSolve function (within a different environment) and, then, linked to 
+## matrix x -as its inverse m- via the x$setinvmatrix(m) code
 ## which calls <<- to alter m. In other words, this function opens the
 ## makeCacheMatrix-environment's door for getting in the value of m calculated in 
 ## cacheSolve-environment.
@@ -56,7 +52,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## via the getinvmatrix function defined above: if m is not NULL
 ## it returns the cached value of m. If no previous value of m exists 
 ## (different from NULL) then it makes the inversion, pass it to the 
-## appropriate envir, and delivers its value.
+## appropriate envir via x$setinvmatrix(m), and delivers its value.
 
 cacheSolve <- function(x, ...) {
     m<-x$getinvmatrix()
